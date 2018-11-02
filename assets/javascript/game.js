@@ -114,7 +114,22 @@ function gameOver(){
     $("#question-div").append(`<p>Incorrect Answers: ${incorrectScore}</p>`);
     $("#question-div").append(`<p>Unanswered Answers: ${unansweredScore}</p>`);
 
+    newButton = $("<button>");
+    newButton.text("Try again?")
+    newButton.attr("id", "start-button");
+    $("#question-div").append(newButton);
+    
+
 };
+
+function startGame(){
+    $("#question-div").empty();
+    correctScore = 0;
+    incorrectScore = 0;
+    unansweredScore = 0;
+    questionNumber = 0;
+    displayQuestion();
+}
 
 //Running the game
 
@@ -134,7 +149,7 @@ function gameOver(){
 
     //Function to show End Game result
 
-    displayQuestion();
+    // displayQuestion();
     $(document).on("click", ".choice-button", choicePress);
     $(document).on("click", "#start-button", startGame);
 
