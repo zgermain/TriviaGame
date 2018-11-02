@@ -1,0 +1,14 @@
+
+
+.container{
+    background-color: lightblue;
+    text-align: center;
+    height: 600px;
+    max-width: 600px;
+    display: flex;
+    align-items: center;
+}
+
+#title{
+    text-align: center;
+}
