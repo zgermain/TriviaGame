@@ -19,23 +19,44 @@ var questions = [{
 var correctScore = 0;
 var incorrectScore = 0;
 var unansweredScore = 0;
-var secondsLeft = 0;
+var countDownTimer = 10;
 // var gameOver = true;
 var questionNumber = 0;  //counter for question turns
 var userGuess = ""
 var userCorrect = true;
+var intervalId;
 
 //Essential Functions
 
     //Function to set a Question timer
-// setTimeout();
 
-    //Function to set an invisible "wait a few seconds" timer
+function runTimer() {
+    clearInterval(intervalId);
+    intervalId = setInterval(decrement, 1000);
+  };
 
+function stopTimer() {
+    clearInterval(intervalId);
+  };
+
+function decrement() {
+
+    countDownTimer--;
+
+    $("#timer").html("<h3>" + countDownTimer + "</h3>");
+    if (countDownTimer === 0) {
+      stopTimer();
+      unansweredScore++;
+      displayResult();
+    }
+  };
 
     //Function to display questions and buttons
 function displayQuestion() {
     $("#question-div").empty();
+    countDownTimer = 10;
+    $("#timer").html("<h3>" + countDownTimer + "</h3>");
+    runTimer();
 
     var newDiv = $("<div>")
     newDiv.append(`<p>${questions[questionNumber].question}</p>`);
@@ -58,6 +79,7 @@ function choicePress() {
 
     userGuess = $(this).val();
     console.log("userGuess: " + userGuess);
+    stopTimer();
 
     if (userGuess === questions[questionNumber].correctChoice){
         console.log("That's Right!");
@@ -80,7 +102,11 @@ function displayResult(){
 
     $("#question-div").empty();
 
-    if (userCorrect === true){
+    if (countDownTimer === 0){
+        $("#question-div").append(`<h2>You ran out of Time!!!</h2>`);
+        $("#question-div").append(`<p>The correct answer was ${questions[questionNumber].correctChoice}</p>`);
+        delayDisplay();
+    } else if (userCorrect === true){
         $("#question-div").append(`<h2>You Got It!</h2>`);
         //display picture
         delayDisplay();
