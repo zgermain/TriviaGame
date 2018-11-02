@@ -2,33 +2,27 @@
 
 //Global Variables
 var questions = [{
-    question: "What is 2*5?",
-    choices: [2, 5, 10, 15],
-    correctChoice: 2
+    question: "What is my name?",
+    choices: ["Zack", "Josh", "Scooby-Dooby-Doo", "Sarah"],
+    correctChoice: "Zack"
   }, {
-    question: "What is 3*6?",
-    choices: [3, 6, 9, 18],
-    correctAnswer: 3
+    question: "Where are you",
+    choices: ["Cincinnati", "Chicago", "Washington D.C.", "Evergreen"],
+    correctAnswer: "Chicago"
   }, {
-    question: "What is 8*9?",
-    choices: [72, 99, 108, 134],
-    correctChoice: 0
-  }, {
-    question: "What is 1*7?",
-    choices: [4, 5, 6, 7],
-    correctChoice: 3
-  }, {
-    question: "What is 8*8?",
-    choices: [20, 30, 40, 64],
-    correctChoice: 3
-  }];
+    question: "What is....your favorite color?",
+    choices: ["Purple", "Yellow", "Red...I mean Blue!", "Aqua"],
+    correctChoice: "Red...I mean Blue!"
+  }
+];
 
-correctAnswers = 0;
-incorrectAnswers = 0;
-secondsLeft = 0;
-gameOver = true;
+var correctScore = 0;
+var incorrectScore = 0;
+var secondsLeft = 0;
+var gameOver = true;
     //counter for question turns
-questionNumber = 0;
+var questionNumber = 0;
+var userGuess = ""
 
 //Essential Functions
 
@@ -40,18 +34,34 @@ questionNumber = 0;
     //Function to clear the "last page" jQuery .empty()
 
     //Function to display questions and buttons
-    function displayButtons() {
+function displayButtons() {
 
     for (i=0; i < questions[questionNumber].choices.length; i++){
         var newButton = $("<button>");
         var newDiv = $("<div>")
         newButton.text(questions[questionNumber].choices[i]);
-        newButton.attr("value", i);
+        newButton.attr("value", questions[questionNumber].choices[i]);
+        newButton.attr("class", "choice-button");
         newDiv.append(newButton);
         $(".container").append(newDiv);
     }
 };
-displayButtons();
+
+function choicePress() {
+
+    userGuess = $(this).val();
+    console.log("userGuess: " + userGuess);
+
+    if (userGuess === questions[questionNumber].correctChoice){
+        console.log("That's Right!")
+    } else {
+        console.log("That's Wrrrong!")
+    };
+
+
+};
+
+
 
     //Function to display right/wrong answer page 
 
@@ -62,6 +72,7 @@ displayButtons();
         //set gameOver to false
 
     //Function to show question and create buttons for answers
+
         //Clear Divs from last Screen
         //Create a Div and Display Question
         //Create a Div and 4 buttons
@@ -72,6 +83,9 @@ displayButtons();
         //Display "You are Right" or "You are a Looooser"
 
     //Function to show End Game result
+
+    displayButtons();
+    $(document).on("click", ".choice-button", choicePress);
 
 
 
