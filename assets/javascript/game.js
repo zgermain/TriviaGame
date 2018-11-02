@@ -8,7 +8,7 @@ var questions = [{
   }, {
     question: "Where are you",
     choices: ["Cincinnati", "Chicago", "Washington D.C.", "Evergreen"],
-    correctAnswer: "Chicago"
+    correctChoice: "Chicago"
   }, {
     question: "What is....your favorite color?",
     choices: ["Purple", "Yellow", "Red...I mean Blue!", "Aqua"],
@@ -23,6 +23,7 @@ var gameOver = true;
     //counter for question turns
 var questionNumber = 0;
 var userGuess = ""
+var userCorrect = true;
 
 //Essential Functions
 
@@ -31,10 +32,14 @@ var userGuess = ""
 
     //Function to set an invisible "wait a few seconds" timer
 
-    //Function to clear the "last page" jQuery .empty()
 
     //Function to display questions and buttons
-function displayButtons() {
+function displayQuestion() {
+    $("#question-div").empty();
+
+    var newDiv = $("<div>")
+    newDiv.append(`<p>${questions[questionNumber].question}</p>`);
+    $("#question-div").append(newDiv);
 
     for (i=0; i < questions[questionNumber].choices.length; i++){
         var newButton = $("<button>");
@@ -43,35 +48,67 @@ function displayButtons() {
         newButton.attr("value", questions[questionNumber].choices[i]);
         newButton.attr("class", "choice-button");
         newDiv.append(newButton);
-        $(".container").append(newDiv);
+        $("#question-div").append(newDiv);
     }
 };
 
+
+    //Function that reacts to user button presses
 function choicePress() {
 
     userGuess = $(this).val();
     console.log("userGuess: " + userGuess);
 
     if (userGuess === questions[questionNumber].correctChoice){
-        console.log("That's Right!")
+        console.log("That's Right!");
+        userCorrect = true;
+        correctScore++;
+        displayResult();
+
     } else {
         console.log("That's Wrrrong!")
+        userCorrect = false;
+        incorrectScore++;
+        displayResult();
     };
 
 
 };
 
-
-
     //Function to display right/wrong answer page 
+function displayResult(){
 
+    $("#question-div").empty();
+
+    if (userCorrect === true){
+        $("#question-div").append(`<h2>You Got It!</h2>`);
+        //display picture
+        delayDisplay();
+    } else {
+        $("#question-div").append(`<h2>LOOOOSER!!!</h2>`);
+        $("#question-div").append(`<p>The correct answer was ${questions[questionNumber].correctChoice}</p>`);
+        delayDisplay();
+    };
+    
+};
+
+function delayDisplay(){
+    questionNumber++;
+    if (questionNumber === questions.length){
+        ///delay
+        ///final screen
+        // setTimeout(displayQuestion, 1000 * 5);
+    } else {
+        setTimeout(displayQuestion, 1000 * 5);
+    };
+};
 
 //Running the game
 
     //Function to initialize game
         //set gameOver to false
 
-    //Function to show question and create buttons for answers
+    
 
         //Clear Divs from last Screen
         //Create a Div and Display Question
@@ -84,8 +121,9 @@ function choicePress() {
 
     //Function to show End Game result
 
-    displayButtons();
+    displayQuestion();
     $(document).on("click", ".choice-button", choicePress);
+    $(document).on("click", "#start-button", startGame);
 
 
 
