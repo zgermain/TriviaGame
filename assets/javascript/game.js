@@ -18,10 +18,10 @@ var questions = [{
 
 var correctScore = 0;
 var incorrectScore = 0;
+var unansweredScore = 0;
 var secondsLeft = 0;
-var gameOver = true;
-    //counter for question turns
-var questionNumber = 0;
+// var gameOver = true;
+var questionNumber = 0;  //counter for question turns
 var userGuess = ""
 var userCorrect = true;
 
@@ -97,10 +97,23 @@ function delayDisplay(){
     if (questionNumber === questions.length){
         ///delay
         ///final screen
-        // setTimeout(displayQuestion, 1000 * 5);
+        setTimeout(gameOver, 1000 * 5);
     } else {
         setTimeout(displayQuestion, 1000 * 5);
     };
+};
+
+function gameOver(){
+
+    $("#question-div").empty();
+
+    newDiv = $("<div>");
+    newDiv.append("<h3>All Done! Here's your score</h3>");
+    $("#question-div").append(newDiv);
+    $("#question-div").append(`<p>Correct Answers: ${correctScore}</p>`);
+    $("#question-div").append(`<p>Incorrect Answers: ${incorrectScore}</p>`);
+    $("#question-div").append(`<p>Unanswered Answers: ${unansweredScore}</p>`);
+
 };
 
 //Running the game
