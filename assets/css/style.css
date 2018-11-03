@@ -95,22 +95,27 @@ button:active{
         font-size: 45px;
     }
 
-    h3{
+    h3, p, button{
         font-size: 30px;
     }
     
-    p{
-        font-size: 30px;
-    }
-
-    button{
-        font-size: 30px;
-    }
+  
 }
 
 /* 470px viewport */
 @media (max-width: 470px) {
     h1{
         font-size: 40px;
+    }
+
+    h2{
+        font-size: 40px;
+    }
+
+    p, button{
+        font-size: 25px;
+    }
+    .container{
+        min-height: 500px;
     }
 }
