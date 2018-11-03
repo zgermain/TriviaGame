@@ -6,7 +6,7 @@ var questions = [{
     choices: ["Captain Marvel", "Hawkman", "Ghost Rider", "Aquaman"],
     correctChoice: "Aquaman"
   }, {
-    question: "What super villain was created when Emil Blonsky accidentally exposed himself to a concentrated burst of gamma rays?",
+    question: "What villain was created when Emil Blonsky accidentally exposed himself to a burst of gamma rays?",
     choices: ["Abomination", "Doc Samson", "The Leader", "Bi-Beast"],
     correctChoice: "Abomination"
   }, {
@@ -22,7 +22,7 @@ var questions = [{
     choices: ["Fantastic Four", "Avengers", "Justice League", "Teen Titans"],
     correctChoice: "Avengers"
   }, {
-    question: "Which of these superheroines was inhabited by the soul of an ancient Egyptian princess after attempting suicide?",
+    question: "Which of these superheroines was inhabited by the soul of an ancient Egyptian princess?",
     choices: ["Black Canary", "Wonder Woman", "Huntress", "Hawkgirl"],
     correctChoice: "Hawkgirl"
   }, {
@@ -54,6 +54,12 @@ var userGuess = ""
 var userCorrect = true;
 var intervalId;
 
+//audio variables
+var countDownMusic = document.getElementById("countDown");
+var wrongSound = document.getElementById("wrongSound");
+var correctSound = document.getElementById("correctSound");
+var endMusic = document.getElementById("endMusic");
+
 //Essential Functions
 
     //Function to set a Question timer
@@ -75,6 +81,7 @@ function decrement() {
     if (countDownTimer === 0) {
       stopTimer();
       unansweredScore++;
+      wrongSound.play();
       displayResult();
     }
   };
@@ -85,11 +92,15 @@ function displayQuestion() {
     countDownTimer = 10;
     $("#timer").html("<h3>Time Left: " + countDownTimer + "</h3>");
     runTimer();
+    
 
     //Fills in new question into a div
     var newDiv = $("<div>")
     newDiv.append(`<p>${questions[questionNumber].question}</p>`);
     $("#question-div").append(newDiv);
+
+    //plays countDown audio
+    countDownMusic.play();
 
     
     
@@ -113,17 +124,21 @@ function choicePress() {
     userGuess = $(this).val();
     console.log("userGuess: " + userGuess);
     stopTimer();
+    countDownMusic.pause();
+    countDownMusic.currentTime = 0;
 
     if (userGuess === questions[questionNumber].correctChoice){
         console.log("That's Right!");
         userCorrect = true;
         correctScore++;
+        correctSound.play();
         displayResult();
 
     } else {
         console.log("That's Wrrrong!")
         userCorrect = false;
         incorrectScore++;
+        wrongSound.play();
         displayResult();
     };
 
@@ -138,17 +153,17 @@ function displayResult(){
     if (countDownTimer === 0){
         $("#question-div").append(`<h2>You ran out of Time!!!</h2>`);
         $("#question-div").append(`<p>The correct answer was ${questions[questionNumber].correctChoice}</p>`);
-        responsiveVoice.speak("You ran out of Time! The correct answer was "+questions[questionNumber].correctChoice);
+        responsiveVoice.speak("You ran out of Time! The correct answer was "+questions[questionNumber].correctChoice, "UK English Male");
         delayDisplay();
     } else if (userCorrect === true){
         $("#question-div").append(`<h2>You Got It!</h2>`);
-        responsiveVoice.speak("You got it!");
+        responsiveVoice.speak("You got it!", "UK English Male");
         //display picture
         delayDisplay();
     } else {
-        $("#question-div").append(`<h2>LOOOOSER!!!</h2>`);
+        $("#question-div").append(`<h2>Wrong!!!</h2>`);
         $("#question-div").append(`<p>The correct answer was <strong>${questions[questionNumber].correctChoice}</strong></p>`);
-        responsiveVoice.speak("Lou ooh ooh ooh sir. The correct answer was "+questions[questionNumber].correctChoice);
+        responsiveVoice.speak("Wrong! The correct answer was "+questions[questionNumber].correctChoice, "UK English Male");
         delayDisplay();
     };
     
@@ -170,18 +185,19 @@ function questionTimeout(){
     var newDiv = $("<div>")
     newDiv.append(`<h2>${questions[questionNumber].question}</h2>`);
     $("#question-div").append(newDiv);
-    responsiveVoice.speak(questions[questionNumber].question);
+    responsiveVoice.speak(questions[questionNumber].question, "UK English Male");
 
-    setTimeout(displayQuestion, 1000 * 5)
+    setTimeout(displayQuestion, 1000 * 6)
 };
 
 function gameOver(){
 
     $("#question-div").empty();
+    endMusic.play().choicePress
 
     newDiv = $("<div>");
     newDiv.append("<h3>All Done! Here's your score</h3>");
-    responsiveVoice.speak("All Done! Here's your score.");
+    responsiveVoice.speak("All Done! Here's your score.", "UK English Male");
     $("#question-div").append(newDiv);
     $("#question-div").append(`<p>Correct Answers: ${correctScore}</p>`);
     $("#question-div").append(`<p>Incorrect Answers: ${incorrectScore}</p>`);
@@ -201,6 +217,8 @@ function startGame(){
     incorrectScore = 0;
     unansweredScore = 0;
     questionNumber = 0;
+    endMusic.pause();
+    endMusic.currentTime = 0;
     questionTimeout();
 }
 

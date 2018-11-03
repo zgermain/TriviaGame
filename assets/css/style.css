@@ -13,8 +13,7 @@ button{
 }
 
 h1{
-    font-size: 80px;
-    color: #6C756B;
+    font-size: 70px;
 }
 
 h2{
@@ -62,6 +61,14 @@ button{
     max-width: 800px;
     margin: 0px auto 0px auto;
     font-family: 'Slackey', cursive;
+}
+
+#credit{
+    max-width: 800px;
+    margin: 0px auto 0px auto;
+    padding: 5px 0px;
+    font-family: 'Unkempt', cursive;
+    font-size: 30px;
 }
 
 #timer{
