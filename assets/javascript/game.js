@@ -91,6 +91,9 @@ function displayQuestion() {
     newDiv.append(`<p>${questions[questionNumber].question}</p>`);
     $("#question-div").append(newDiv);
 
+    
+    
+
     //Creates buttons based on current question
     for (i=0; i < questions[questionNumber].choices.length; i++){
         var newButton = $("<button>");
@@ -135,14 +138,17 @@ function displayResult(){
     if (countDownTimer === 0){
         $("#question-div").append(`<h2>You ran out of Time!!!</h2>`);
         $("#question-div").append(`<p>The correct answer was ${questions[questionNumber].correctChoice}</p>`);
+        responsiveVoice.speak("You ran out of Time! The correct answer was "+questions[questionNumber].correctChoice);
         delayDisplay();
     } else if (userCorrect === true){
         $("#question-div").append(`<h2>You Got It!</h2>`);
+        responsiveVoice.speak("You got it!");
         //display picture
         delayDisplay();
     } else {
         $("#question-div").append(`<h2>LOOOOSER!!!</h2>`);
         $("#question-div").append(`<p>The correct answer was <strong>${questions[questionNumber].correctChoice}</strong></p>`);
+        responsiveVoice.speak("Lou ooh ooh ooh sir. The correct answer was "+questions[questionNumber].correctChoice);
         delayDisplay();
     };
     
@@ -155,8 +161,18 @@ function delayDisplay(){
         ///final screen
         setTimeout(gameOver, 1000 * 5);
     } else {
-        setTimeout(displayQuestion, 1000 * 5);
+        setTimeout(questionTimeout, 1000 * 5);
     };
+};
+
+function questionTimeout(){
+    $("#question-div").empty();
+    var newDiv = $("<div>")
+    newDiv.append(`<h2>${questions[questionNumber].question}</h2>`);
+    $("#question-div").append(newDiv);
+    responsiveVoice.speak(questions[questionNumber].question);
+
+    setTimeout(displayQuestion, 1000 * 5)
 };
 
 function gameOver(){
@@ -165,6 +181,7 @@ function gameOver(){
 
     newDiv = $("<div>");
     newDiv.append("<h3>All Done! Here's your score</h3>");
+    responsiveVoice.speak("All Done! Here's your score.");
     $("#question-div").append(newDiv);
     $("#question-div").append(`<p>Correct Answers: ${correctScore}</p>`);
     $("#question-div").append(`<p>Incorrect Answers: ${incorrectScore}</p>`);
@@ -184,7 +201,7 @@ function startGame(){
     incorrectScore = 0;
     unansweredScore = 0;
     questionNumber = 0;
-    displayQuestion();
+    questionTimeout();
 }
 
 //Running the game
