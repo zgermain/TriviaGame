@@ -1,14 +1,79 @@
 
+body{
+background-color: #F2F4FF;
+}
+
+button{
+    width: 75%;
+    padding: 10px;
+    margin: 10px 0px;
+    background-color: #A9D3FF;
+    border: none;
+    font-size: 35px;
+}
+
+h1{
+    font-size: 80px;
+    color: #6C756B;
+}
+
+h2{
+    font-size: 60px;
+    font-weight: bold;
+}
+
+h3{
+    font-size: 40px;
+    font-weight: bold;
+    font-family: 'Life Savers', cursive;
+}
+
+p{
+    font-size: 40px;
+}
+
+h2, h4, p{
+    font-family: 'Life Savers', cursive;
+}
+
+button{
+    font-family: 'Life Savers', cursive;
+    font-weight: bold;
+}
+
+
 
 .container{
-    background-color: lightblue;
+    background-color: #96C5F7;
     text-align: center;
-    height: 600px;
-    max-width: 600px;
-    display: flex;
+    min-height: 600px;
+    max-width: 800px;
+    /* display: flex; */
     align-items: center;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+}
+
+#start-screen{
+    margin-top: 200px;
 }
 
 #title{
-    text-align: center;
+    /* text-align: center; */
+    max-width: 800px;
+    margin: 0px auto 0px auto;
+    font-family: 'Slackey', cursive;
+}
+
+#timer{
+    padding: 20px;
+}
+
+button:hover{
+    background-color: rgb(193, 221, 250);
+    transition: 0.3s;
+}
+
+button:active{
+    background-color: rgb(88, 159, 235);
+    color: white;
 }
