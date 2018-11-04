@@ -1,6 +1,7 @@
 
 body{
-background-color: #F2F4FF;
+/* background-color: #F2F4FF; */
+background-image: url("/TriviaGame/assets/images/wall4_@2X.png")
 }
 
 button{
