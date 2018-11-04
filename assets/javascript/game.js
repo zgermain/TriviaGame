@@ -163,7 +163,7 @@ function displayResult(){
 
     if (countDownTimer === 0){
         $("#question-div").append(`<h2>You ran out of Time!!!</h2>`);
-        $("#question-div").append(`<p>The correct answer was ${questions[questionNumber].correctChoice}</p>`);
+        $("#question-div").append(`<p>The correct answer was <strong> ${questions[questionNumber].correctChoice}</strong></p>`);
         responsiveVoice.speak("You ran out of Time! The correct answer was "+questions[questionNumber].correctChoice, "UK English Male");
         $("#question-div").append(`${questions[questionNumber].img}`);
         delayDisplay();
