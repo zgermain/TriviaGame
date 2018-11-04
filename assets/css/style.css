@@ -122,7 +122,9 @@ button:active{
     }
 
     img{
-        height: 320px;
+        /* height: 320px; */
+        height: 95%;
+        width: 95%;
     }
     .container{
         min-height: 500px;
