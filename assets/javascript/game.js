@@ -15,7 +15,7 @@ var questions = [{
     question: "What Chester Gould character made his first appearance in the Detroit Free Press on October 4, 1931?",
     choices: ["Buck Rogers", "Dick Tracy", "Superman", "Flash Gordon"],
     correctChoice: "Dick Tracy",
-    img: "<img src='assets/images/Dick Tracy.jpg'>"
+    img: "<img src='assets/images/Dick_Tracy.JPG'>"
   }, {
     question: "What superhero grew up on the planet Tamaran?",
     choices: ["Hawkgirl", "Ultra Boy", "The Silver Surfer", "Starfire"],
