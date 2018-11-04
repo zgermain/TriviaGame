@@ -40,6 +40,10 @@ button{
     font-weight: bold;
 }
 
+img{
+    height: 350px;
+    border: solid black 5px;
+}
 
 
 .container{
@@ -114,6 +118,10 @@ button:active{
 
     p, button{
         font-size: 25px;
+    }
+
+    img{
+        height: 320px;
     }
     .container{
         min-height: 500px;
